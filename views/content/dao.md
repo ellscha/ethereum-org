@@ -37,17 +37,17 @@ The way this particular democracy works is that it has an **Owner** which works 
     }
 
     contract tokenRecipient { 
-        event receivedEther(address sender, uint amount);
-        event receivedTokens(address _from, uint256 _value, address _token, bytes _extraData);
+        event ReceivedEther(address sender, uint amount);
+        event ReceivedTokens(address _from, uint256 _value, address _token, bytes _extraData);
 
         function receiveApproval(address _from, uint256 _value, address _token, bytes _extraData){
             Token t = Token(_token);
             if (!t.transferFrom(_from, this, _value)) throw;
-            receivedTokens(_from, _value, _token, _extraData);
+            ReceivedTokens(_from, _value, _token, _extraData);
         }
 
         function () payable {
-            receivedEther(msg.sender, msg.value);
+            ReceivedEther(msg.sender, msg.value);
         }
     }
     
